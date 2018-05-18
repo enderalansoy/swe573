@@ -63,6 +63,14 @@ var jsFilesToInject = [
 
   // Load `sails.io` before everything else.
   'dependencies/sails.io.js',
+  'dependencies/ajquery-3.3.1.min.js',
+  'dependencies/bootstrap.bundle.min.js',
+  'dependencies/chart.bundle.min.js',
+  'dependencies/chart.bundle.min.js',
+  'dependencies/progressbar.js',
+  'dependencies/selectize.min.js',
+  'dependencies/zchart.js',
+  'dependencies/zhomepage.js',
 
   // Bring in `.js` files for any other client-side JavaScript dependencies.
   // (e.g. Lodash, Vue.js, jQuery, Bootstrap, Ember, Angular, etc.)
