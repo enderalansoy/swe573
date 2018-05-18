@@ -20,6 +20,7 @@
     "sails-hook-grunt": "^3.0.2",
     "sails-hook-orm": "^2.0.0-16",
     "sails-hook-sockets": "^1.4.0",
+    "sails-mongo": "^1.0.1",
     "twitter": "^1.7.1",
     "watson-developer-cloud": "^3.4.1"
   },

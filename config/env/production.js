@@ -101,7 +101,7 @@ module.exports = {
     * choose to keep this enabled.)                                            *
     *                                                                          *
     ***************************************************************************/
-    // cascadeOnDestroy: false,
+    cascadeOnDestroy: true,
 
   },
 
@@ -118,7 +118,7 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   blueprints: {
-    shortcuts: false,
+    shortcuts: true,
   },
 
 
@@ -250,10 +250,10 @@ module.exports = {
     * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
     *                                                                          *
     ***************************************************************************/
-    // onlyAllowOrigins: [
-    //   'https://example.com',
-    //   'https://staging.example.com',
-    // ],
+    onlyAllowOrigins: [
+      'https://bitcio.now.sh',
+      'http://bitcio.now.sh',
+    ],
 
 
     /***************************************************************************
@@ -282,8 +282,6 @@ module.exports = {
 
   },
 
-
-
   /**************************************************************************
   *                                                                         *
   * Set the production log level.                                           *
@@ -294,8 +292,6 @@ module.exports = {
   log: {
     level: 'debug'
   },
-
-
 
   http: {
 
