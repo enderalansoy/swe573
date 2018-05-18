@@ -251,8 +251,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://bitcio.now.sh',
-      'http://bitcio.now.sh',
+      'https://bitcio.herokuapp.com/',
+      'http://bitcio.herokuapp.com/',
     ],
 
 
