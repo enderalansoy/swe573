@@ -31,7 +31,8 @@ module.exports.routes = {
   'POST /login': { controller: 'AuthController', action: 'login' },
 
   'GET /trends/:coinId': { controller: 'CoinController', action: 'trend' },
-  
+  'GET /sentiment/:q': { controller: 'CoinController', action: 'sentiment' },
+
 
   /***************************************************************************
   *                                                                          *

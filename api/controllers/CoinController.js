@@ -26,13 +26,15 @@ const cmcApiUrl = 'https://api.coinmarketcap.com/v2/ticker';
 
 module.exports = {
 
-  analyze: async (req, res) => {
+  sentiment: async (req, res) => {
     let text = '';
+    let positive = 0;
+    let negative = 0;
     const twitterOptions = {
-      q: req.query.q,
+      q: req.params.q,
       count: 100,
       lang: 'en',
-      result_type: 'recent',
+      result_type: 'popular',
     };
     twitterClient.get('search/tweets', twitterOptions, (err, tweets, response) => {
       tweets.statuses.forEach((tweet) => {
@@ -47,7 +49,18 @@ module.exports = {
         if (error) {
           return res.json(error);
         } else {
-          return res.json(analysis.document_tone);
+          analysis.document_tone.tones.forEach((tone) => {
+            if (tone.tone_id === 'joy') {
+              positive += (tone.score - 0.5);
+            } else if (tone.tone_id === 'sadness' || tone.tone_id === 'fear' || tone.tone_id === 'anger') {
+              negative += (tone.score - 0.5);
+            }
+          });
+          return res.json({
+            symbol: req.params.q,
+            tones: analysis.document_tone.tones,
+            score: 100 * (positive - negative),
+          });
         }
       });
     });

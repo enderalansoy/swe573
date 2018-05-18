@@ -1,33 +1,23 @@
 
-window.chartColors = {
-	red: 'rgb(255, 99, 132)',
-	orange: 'rgb(255, 159, 64)',
-	yellow: 'rgb(255, 205, 86)',
-	green: 'rgb(75, 192, 192)',
-	blue: 'rgb(54, 162, 235)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(236, 238, 239)'
-};
-
 var chartData = {
     labels: [],
     datasets: [{
         type: 'line',
         label: 'Real',
-		backgroundColor: 'black',
-		borderColor: 'darkgray',
+		backgroundColor: '#00e676',
+		borderColor: '#66ffa6',
         borderWidth: 3,
         fill: false,
         data: []
     }, {
-        type: 'bar',
+        type: 'line',
         label: 'Analysis',
-        backgroundColor: 'rgb(236, 238, 239)',
+        backgroundColor: '#c48b9f',
         data: [],
-        borderColor: 'white',
-        borderWidth: 2,
-    }]
-
+		borderColor: '#f8bbd0',
+		fill: false,
+        borderWidth: 3,
+	}],
 };
 
 let ctx = document.getElementById('coin-chart').getContext('2d');
@@ -39,6 +29,10 @@ let coinChart = new Chart(ctx, {
 		tooltips: {
 			mode: 'index',
 			intersect: true,
-		}
+		},
+		legend: {
+			display: true,
+			position: 'bottom'
+		},
 	}
 });
