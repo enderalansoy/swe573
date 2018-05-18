@@ -65,6 +65,7 @@ var jsFilesToInject = [
   'dependencies/sails.io.js',
   'dependencies/ajquery-3.3.1.min.js',
   'dependencies/bootstrap.bundle.min.js',
+  'dependencies/axios.min.js',
   'dependencies/chart.bundle.min.js',
   'dependencies/chart.bundle.min.js',
   'dependencies/progressbar.js',
