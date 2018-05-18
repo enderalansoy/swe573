@@ -47,7 +47,6 @@
     <%- body %>
     
     <%# Footer: footer.ejs %>
-    <%- include footer %>
     
     <!--
         Client-side Templates
@@ -124,21 +123,15 @@
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script src="https://cdn.rawgit.com/rikmms/progress-bar-4-axios/0a3acf92/dist/index.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/microplugin/0.0.3/microplugin.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/selectize.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
       <script src="/dependencies/zchart.js"></script>
       <script src="/dependencies/zhomepage.js"></script>
       
 
     <!--SCRIPTS-->
     <script src="/dependencies/sails.io.js"></script>
-    <script src="/dependencies/ajquery-3.3.1.min.js"></script>
-    <script src="/dependencies/bootstrap.bundle.min.js"></script>
-    <script src="/dependencies/axios.min.js"></script>
-    <script src="/dependencies/chart.bundle.min.js"></script>
-    <script src="/dependencies/progressbar.js"></script>
-    <script src="/dependencies/selectize.min.js"></script>
-    <script src="/dependencies/zchart.js"></script>
-    <script src="/dependencies/zhomepage.js"></script>
     <!--SCRIPTS END-->
+
+    <%- include footer %>
   </body>
 </html>
