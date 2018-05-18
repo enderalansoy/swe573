@@ -5,6 +5,8 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const nodeMailer = require('nodemailer');
+
 module.exports = {
 
   approve: async (req, res) => {
@@ -13,7 +15,9 @@ module.exports = {
     if (req.query.secret === user.mailSecret) {
       console.log(true);
       const updatedUser = await User.update({ mail: req.query.mail }).set({ isApproved: true}).fetch();
-      return res.json(updatedUser);
+      res.clearCookie('verificationmail');
+      res.cookie('id', updatedUser[0].id);
+      return res.redirect('/');
     } else {
       return res.json('Wrong secret.');
     }
@@ -35,18 +39,18 @@ module.exports = {
     let transporter = nodeMailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'aendersoy@gmail.com',
-        pass: 'Iop890778'
+        user: sails.config.secrets.gmail.user,
+        pass: sails.config.secrets.gmail.pass,
       }
     });
     let mailOptions = {
-      from: 'aendersoy@gmail.com', // sender address
+      from: sails.config.secrets.gmail.user, // sender address
       to: user[0].mail, // list of receivers
       subject: 'Mail verification', // Subject line
       html: `
         Your code is: <b>${user[0].mailSecret}</b>
         You can enter the code in the application or 
-        <a href=https://fobenchmark.com/approve?mail=${user[0].mail}&secret=${user[0].mailSecret}>click here</a>
+        <a href=/approve?mail=${user[0].mail}&secret=${user[0].mailSecret}>click here</a>
       `
     };
 
@@ -63,7 +67,17 @@ module.exports = {
     await User.destroy({});
     return res.send('All users have been deleted.');
   },
-    
 
+  getfavorites: async (req, res) => {
+    const user = await User.findOne({ id: req.query.id });
+    return res.json(user.favorites);
+  },
+
+  setfavorites: async (req, res) => {
+    let favorites = req.query.favorites;
+    favorites = favorites.split(',');
+    const user = await User.update({ id: req.query.id }).set({ favorites }).fetch();
+    return res.json(user.favorites);
+  },
 };
 

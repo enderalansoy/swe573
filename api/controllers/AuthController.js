@@ -9,8 +9,17 @@ const passport = require('passport');
 
 module.exports = {
 
-  login: (req, res) => {
-    passport.authenticate('local', (err, user, info) => {
+  login: async (req, res) => {
+    console.log(req.allParams().mail);
+    passport.authenticate('local', async (err, user, info) => {
+      if (!user) {
+        const newUser = await User.create({
+          mail: req.allParams().mail,
+          password: req.allParams().password,
+        }).fetch();
+        res.cookie('verificationmail', newUser.mail);
+        return res.view('pages/homepage', { user: newUser, info });
+      }
       sails.log.info({ user });
       if (user.isApproved) {
         if (err || !user) {
@@ -20,7 +29,9 @@ module.exports = {
           if (error) {
             return res.send(error);
           }
-          return res.send({ info, user });
+          res.cookie('id', user.id);
+          res.cookie('mail', user.mail);
+          return res.view('pages/homepage', { user, info });
         });
       } else {
         return res.json("User is not approved.");
@@ -30,6 +41,8 @@ module.exports = {
 
   logout: (req, res) => {
     req.logout();
+    res.clearCookie('mail');
+    res.clearCookie('id');
     return res.redirect('/');
   },
 

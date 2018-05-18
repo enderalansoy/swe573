@@ -41,6 +41,11 @@ module.exports = {
       defaultsTo: 'no-secret',
     },
 
+    favorites: {
+      type: 'json',
+      defaultsTo: [],
+    }
+
   },
 
   customToJSON: function() {
@@ -66,9 +71,10 @@ module.exports = {
     // Send verification mail:
     let transporter = nodeMailer.createTransport({
       service: 'gmail',
+      host: 'smtp.gmail.com',
       auth: {
         user: sails.config.secrets.gmail.user,
-        pass: sails.config.secrets.gmail.password,
+        pass: sails.config.secrets.gmail.pass,
       },
     });
 

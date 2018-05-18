@@ -24,6 +24,15 @@ axios.get('/coin/coins').then((response) => {
         response.data.forEach((coin) => {
             coinlist.push({ name: coin.name, symbol: coin.symbol, id: coin.id, rank: coin.rank });
         });
+        if (getCookie('id')) {
+            console.log('heeh')
+            axios.get(`/user/getfavorites?id=${getCookie('id')}`).then((response) => {
+                response.data.forEach((item) => {
+                    console.log(item);
+                    selectize.addItem(item);
+                });
+            });
+        }
         callback(coinlist);
     });
 }).catch(() => {
@@ -31,6 +40,17 @@ axios.get('/coin/coins').then((response) => {
         callback([{ text:'Sorry, there is an error :(', value:'error' } ]);
     });
 });
+
+function favorite() {
+    let favorites = JSON.stringify(selectize.items);
+    favorites = favorites.replace(/['"]+/g, '');
+    favorites = favorites.replace(/[\])}[{(]/g, ''); 
+    axios.get(`/user/setfavorites?favorites=${favorites}`).then((response) => {
+        console.log(response.data);
+    }).catch((error) => {
+        console.log(error);
+    });
+}
 
 function analyze() {
     let selectionOrder = [];
@@ -56,9 +76,22 @@ function analyze() {
     });
 }
 
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+  }
+
 $(document).ready(function() {
-    $('#account-button').on('click', function() {
-        console.log('hey');
-        $('#login-modal').modal('show');
+    if (getCookie('verificationmail')) {
+        $('#verification').modal('show');
+    }
+    console.log(document.cookie);
+    $('#account-button').on('click', () => {
+        if (getCookie('id')) {
+            $('#loggedin-modal').modal('show');
+        } else {
+            $('#login-modal').modal('show');
+        }
     });
 });
