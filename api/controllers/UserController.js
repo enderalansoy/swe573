@@ -20,23 +20,18 @@ module.exports = {
   },
 
   resend: async (req, res) => {
-
     if (typeof req.query.mail === 'undefined') {
       return res.json('Please enter mail.');
     }
-
     const chars = '0123456789';
     let secret = '';
     for (let i = 5; i > 0; i -= 1) {
       secret += chars[Math.round(Math.random() * (chars.length - 1))];
     }
-
     const user = await User.update({ mail: req.query.mail }).set({ mailSecret: secret}).fetch();
-
     if (user[0].isApproved === true) {
       return res.json('User has already been approved');
     }
-
     let transporter = nodeMailer.createTransport({
       service: 'gmail',
       auth: {
@@ -44,7 +39,6 @@ module.exports = {
         pass: 'Iop890778'
       }
     });
-
     let mailOptions = {
       from: 'aendersoy@gmail.com', // sender address
       to: user[0].mail, // list of receivers

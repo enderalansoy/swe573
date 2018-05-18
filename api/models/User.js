@@ -41,11 +41,6 @@ module.exports = {
       defaultsTo: 'no-secret',
     },
 
-    favorites: {
-      collection: 'coin',
-      via: 'owner',
-    },
-
   },
 
   customToJSON: function() {
@@ -72,14 +67,14 @@ module.exports = {
     let transporter = nodeMailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'aendersoy@gmail.com',
-        pass: 'Iop890778'
-      }
+        user: sails.config.secrets.gmail.user,
+        pass: sails.config.secrets.gmail.password,
+      },
     });
 
     // Options of verification mail:
     let mailOptions = {
-      from: 'aendersoy@gmail.com', // sender address
+      from: sails.config.secrets.gmail.user, // sender address
       to: user.mail, // list of receivers
       subject: 'Mail verification', // Subject line
       html: `

@@ -25,10 +25,13 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'pages/homepage'
+    view: 'pages/homepage',
   },
 
   'POST /login': { controller: 'AuthController', action: 'login' },
+
+  'GET /trends/:coinId': { controller: 'CoinController', action: 'trend' },
+  
 
   /***************************************************************************
   *                                                                          *

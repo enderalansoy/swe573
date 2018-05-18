@@ -17,14 +17,14 @@ passport.use(new LocalStrategy({
   passwordField: 'password'
 }, (mail, password, cb) => {
   User.findOne({ mail }, (err, user) => {
-    if(err) {
+    if (err) {
       return cb(err);
     }
-    if(!user) {
+    if (!user) {
       return cb(null, false, {message: 'E-mail not found'});
     }
     bcrypt.compare(password, user.password, (err, res)=> {
-      if(err) {
+      if (err) {
         return res.json(err);
       }
       if(!res) {
